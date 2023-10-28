@@ -19,6 +19,7 @@ share {
   my $build_dir = '_build';
   build [
     [ '%{meson}', 'setup',
+      '-Ddefault_library=both', # both static and shared
       '--prefix=%{.install.prefix}',
       '--libdir=lib',
       '--buildtype=release',
@@ -28,5 +29,5 @@ share {
     [ '%{ninja}', qw(-C), $build_dir, 'install' ],
   ];
 
-  plugin 'Gather::Dino';
+  plugin 'Gather::IsolateDynamic';
 }
