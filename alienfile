@@ -4,7 +4,6 @@ use Alien::Meson;
 plugin PkgConfig => 'zix-0';
 
 share {
-  requires 'Alien::Build::Plugin::Gather::Dino';
   requires 'Alien::Build::Plugin::Download::GitLab';
   requires 'Alien::Meson';
   requires 'Alien::Ninja';
