@@ -20,7 +20,11 @@ share {
   my $build_dir = '_build';
   build [
     [ Alien::Meson->exe, 'setup',
-      '-Ddefault_library=both', # both static and shared
+      (
+        $^O ne 'MSWin32'
+        ? ( '-Ddefault_library=both', ) # both static and shared
+        : ()
+      ),
       '--prefix=%{.install.prefix}',
       '--libdir=lib',
       '--buildtype=release',
