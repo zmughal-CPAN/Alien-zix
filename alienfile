@@ -1,4 +1,5 @@
 use alienfile;
+use Alien::Meson;
 
 plugin PkgConfig => 'zix-0';
 
@@ -18,7 +19,7 @@ share {
 
   my $build_dir = '_build';
   build [
-    [ '%{meson}', 'setup',
+    [ Alien::Meson->exe, 'setup',
       '-Ddefault_library=both', # both static and shared
       '--prefix=%{.install.prefix}',
       '--libdir=lib',
