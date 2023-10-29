@@ -33,5 +33,7 @@ share {
     [ '%{ninja}', qw(-C), $build_dir, 'install' ],
   ];
 
-  plugin 'Gather::IsolateDynamic';
+  if( $^O ne 'MSWin32' ) {
+    plugin 'Gather::IsolateDynamic';
+  }
 }
