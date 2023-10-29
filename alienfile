@@ -1,5 +1,4 @@
 use alienfile;
-use Alien::Meson;
 
 plugin PkgConfig => 'zix-0';
 
@@ -18,17 +17,22 @@ share {
 
   my $build_dir = '_build';
   build [
-    [ Alien::Meson->exe, 'setup',
-      (
-        $^O ne 'MSWin32'
-        ? ( '-Ddefault_library=both', ) # both static and shared
-        : ()
-      ),
-      '--prefix=%{.install.prefix}',
-      '--libdir=lib',
-      '--buildtype=release',
-      '-Ddocs=disabled', # no docs
-      $build_dir ],
+    sub {
+      my $build = shift;
+      Alien::Build::CommandSequence->new([
+        Alien::Meson->exe, 'setup',
+          (
+            $^O ne 'MSWin32'
+            ? ( '-Ddefault_library=both', ) # both static and shared
+            : ()
+          ),
+          '--prefix=%{.install.prefix}',
+          '--libdir=lib',
+          '--buildtype=release',
+          '-Ddocs=disabled', # no docs
+          $build_dir,
+      ])->execute($build);
+    },
     [ '%{ninja}', qw(-C), $build_dir, "test" ],
     [ '%{ninja}', qw(-C), $build_dir, 'install' ],
   ];
