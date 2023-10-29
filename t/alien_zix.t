@@ -7,6 +7,10 @@ alien_diag 'Alien::zix';
 alien_ok 'Alien::zix';
 
 my $xs = <<'END';
+#if defined(_MSC_VER) || defined(__MINGW32__)
+#  define NO_XSLOCKS /* To avoid Perl wrappers of C library */
+#endif
+
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
