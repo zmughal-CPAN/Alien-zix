@@ -140,7 +140,7 @@ jobs:
       - name: Install share install deps before setting ALIEN_INSTALL_TYPE
         if: matrix.alien-install-type == 'share'
         run: |
-          cpanm --notest Alien::cmake3 Net::SSLeay IO::Socket::SSL
+          cpanm --notest Alien::Meson Alien::Ninja Net::SSLeay IO::Socket::SSL
 
       - name: Set ALIEN_INSTALL_TYPE
         shell: bash
